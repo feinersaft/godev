@@ -10,7 +10,7 @@ func main() {
     days = 28
   )
 
-  speed = distance/days/hoursPerDay
+  speed = distance/(days*hoursPerDay)
 
   fmt.Printf("A ship would need to travel with a speed of %v km/h\n", speed)
 }
