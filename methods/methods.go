@@ -6,6 +6,8 @@ type celsius float64
 type kelvin float64
 type fahrenheit float64
 
+// TODO: fix rounding errors
+
 func (k kelvin) celsius() celsius {
 	return celsius(k - 273.15)
 }
@@ -16,13 +18,13 @@ func (c celsius) kelvin() kelvin {
 	return kelvin(c + 273.15)
 }
 func (c celsius) fahrenheit() fahrenheit {
-	return fahrenheit((9.0 / 5.0 * c) + 32)
+	return c.kelvin().fahrenheit()
 }
 func (f fahrenheit) kelvin() kelvin {
 	return kelvin(5.0 / 9.0 * (f + 459.67))
 }
 func (f fahrenheit) celsius() celsius {
-	return celsius(5.0 / 9.0 * (f - 32))
+	return f.kelvin().celsius()
 }
 func main() {
 	var k kelvin = 294.0
