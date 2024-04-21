@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"math/rand"
-  "time"
 )
 
 var era = "AD"
+
 func generateDates() {
-rand.Seed(time.Now().UnixNano())
+	//rand.Seed(time.Now().UnixNano())
 	year := rand.Intn(2023) + 1
+	//year := 2018
 	month := rand.Intn(12) + 1
 	daysInMonth := 31
 
@@ -24,12 +25,11 @@ rand.Seed(time.Now().UnixNano())
 	}
 
 	day := rand.Intn(daysInMonth) + 1
-
-    }
-		fmt.Println(era, year, month, day)
+	fmt.Println(era, year, month, day)
 }
+
 func main() {
-  	for count := 0; count < 10; count++ {
-      generateDates()
+	for count := 0; count < 10; count++ {
+		generateDates()
 	}
-  }
+}
