@@ -3,15 +3,19 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"text/tabwriter"
 )
 
 var oneway bool
 var spaceline string
 var speed, price int
+var w = tabwriter.NewWriter(os.Stdout, 1, 1, 1, ' ', 0)
 
 const distance = 62100000
 
 func generateTicket() {
+	//w := tabwriter.NewWriter(os.Stdout, 1, 1, 1, ' ', 0)
 	speed = rand.Intn(14) + 16
 	price = (distance / speed) / 60 / 60 / 24
 
@@ -22,36 +26,36 @@ func generateTicket() {
 	// Spaceline
 	switch rand.Intn(2) {
 	case 0:
-		fmt.Print("Virgin Galactic")
+		fmt.Fprint(w, "Virgin Galactic")
 	case 1:
-		fmt.Print("SpaceX")
+		fmt.Fprint(w, "SpaceX")
 	case 2:
-		fmt.Print("Space Adventures")
+		fmt.Fprint(w, "Space Adventures")
 	}
 
-	fmt.Print("\t")
+	fmt.Fprint(w, "\t")
 
 	// Days
-	fmt.Print(rand.Intn(30) + 1)
-	fmt.Print("\t")
+	fmt.Fprint(w, rand.Intn(30)+1)
+	fmt.Fprint(w, "\t")
 
 	// Trip type
 	if rand.Intn(1) == 1 {
-		fmt.Print("One-way")
+		fmt.Fprint(w, "One-way")
 	} else {
-		fmt.Print("Round-trip")
+		fmt.Fprint(w, "Round-trip")
 		price *= 2
 	}
-	fmt.Print("\t")
+	fmt.Fprint(w, "\t")
 
 	// Price
-	fmt.Print("$ ")
-	fmt.Println(int(price))
+	fmt.Fprint(w, "$ ")
+	fmt.Fprintln(w, int(price))
 }
 
 func printTableHeader() {
-	fmt.Println("Spaceline\tDays\tTrip type\tPrice")
-	fmt.Println("=============================================")
+	fmt.Fprintln(w, "Spaceline\tDays\tTrip type\tPrice")
+	fmt.Fprintln(w, "===")
 }
 
 func main() {
@@ -61,4 +65,5 @@ func main() {
 	for i := 0; i < 10; i++ {
 		generateTicket()
 	}
+	w.Flush()
 }
